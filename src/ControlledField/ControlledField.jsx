@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
 
 const ControlledField = () => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
 
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    const handleNameChange = (e) =>{
+        setName(e.target.value);
+    }
+
+    const handleEmailChange = (e) =>{
+        setEmail(e.target.value);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log("Submitted");
+        console.log(name, email, password);
         if(password.length < 6){
             setError('Password must be 6 character or longer');
         }
@@ -33,7 +43,11 @@ const ControlledField = () => {
         // password বা কোনোকিছু ভুল হলে immediately বলবে। 
         <div>
             <form onSubmit={handleSubmit}>
-                <input type="email" name='email'  placeholder='Enter Email' required />
+
+                <input type="text" defaultValue={name} placeholder='Name' onChange={handleNameChange} />
+                <br />
+
+                <input type="email" name='email' onChange={handleEmailChange} defaultValue={email}  placeholder='Enter Email' required />
                 <br />
                 {/* এখানে value={password} দিলে password fixed করে দিবে field এ তাই কোন password ই type করা যাবে না তাই defaultValue add করা হয়েছে।  */}
                 <input type="password" name='password' onChange={handlePasswordOnChange} defaultValue={password}  placeholder='Enter Password' required />
