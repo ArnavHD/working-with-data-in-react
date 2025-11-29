@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const ProductForm = () => {
+const ProductForm = ({ handleAddProduct }) => {
+
+    const [error, setError] = useState('');
 
     const handleProductSubmit = (e)=>{
         e.preventDefault();
@@ -11,12 +13,33 @@ const ProductForm = () => {
         
         // console.log(name, price, quantity); // যা input দেওয়া হইসে সেগুল পাওয়া যাবে। 
 
+        // validation
+        if(name.length === 0){
+            setError("Please set a product Name.");  
+            return;
+        }
+        else if(price.length === 0){
+            setError("Please Provide a Price");
+            return;
+        }
+        else if(price < 0){
+            setError("Price cannot be negative");
+            return;
+        }
+        else{
+            setError('');
+        }
+
         const newProduct = {
             name,
             price,
             quantity
         }
-        console.log(newProduct); // {name: 'Mango', price: '1000', quantity: '100000'} এমন object return করবে। 
+        // console.log(newProduct); // {name: 'Mango', price: '1000', quantity: '100000'} এমন object return করবে। 
+
+        // if(!error){ // এটা করা ঠিক না। কারণ asynchronus হওয়ার আগে এখানে data এসে যেতে পারে। তাই return করে নিতে হবে। 
+        handleAddProduct(newProduct);
+        // }
 
     }
 
@@ -33,6 +56,7 @@ const ProductForm = () => {
                 <br />
                 <input type="submit" value='submit' />
             </form>
+            <p style={{color: 'red'}}><small>{error}</small></p>
         </div>
     );
 };
