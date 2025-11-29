@@ -7,6 +7,13 @@ const ControlledField = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        // console.log("Submitted");
+        if(password.length < 6){
+            setError('Password must be 6 character or longer');
+        }
+        else{
+            setError(''); // error set এর সময় always else টা দিতে হবে না হলে always error show করবে।
+        }
     }
 
     const handlePasswordOnChange = (e)=>{
@@ -14,12 +21,12 @@ const ControlledField = () => {
         console.log(e.target.value); // এইবার value দেখা যাবে।  
         setPassword(e.target.value);
 
-        if(password.length < 6){
-            setError('Password must be 6 character or longer');
-        }
-        else{
-            setError('');
-        }
+        // if(password.length < 6){
+        //     setError('Password must be 6 character or longer');
+        // }
+        // else{
+        //     setError('');// error set এর সময় always else টা দিতে হবে না হলে always error show করবে।
+        // }
     }
     return (
         
